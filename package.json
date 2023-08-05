@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "semantic-release": "semantic-release",
-    "dev": "npx ts-node --esm src/index.ts"
+    "dev": "npx ts-node --esm src/index.ts",
+    "generate-binaries": "npx esbuild src/index.ts --bundle --outfile=bundle.cjs --platform=node && npx pkg bundle.cjs --out-path bin"
   },
   "files": [
     "dist"
