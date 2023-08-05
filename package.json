@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "semantic-release": "semantic-release",
-    "dev": "npx ts-node --esm src/index.ts"
+    "dev": "npx ts-node --esm src/index.ts",
+    "generate-binaries": "npx esbuild src/index.ts --bundle --outfile=bundle.cjs --platform=node && npx pkg bundle.cjs --out-path bin"
   },
   "files": [
     "dist"
@@ -31,13 +32,16 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
+    "@semantic-release/github": "^9.0.4",
     "@types/prompt-sync": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^5.5.2",
     "@typescript-eslint/parser": "^5.5.2",
+    "esbuild": "^0.18.18",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.9.0",
     "eslint-config-standard-with-typescript": "^37.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "pkg": "^5.8.1",
     "prettier": "^3.0.0",
     "semantic-release": "^21.0.7",
     "ts-node": "^10.9.1",
@@ -50,6 +54,30 @@
   "release": {
     "branches": [
       "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "bin/gh-migrate-project-darwin-amd64",
+              "label": "GitHub CLI extension binary for macOS"
+            },
+            {
+              "path": "bin/gh-migrate-project-linux-amd64",
+              "label": "GitHub CLI extension binary for Linux"
+            },
+            {
+              "path": "bin/gh-migrate-project-windows-amd64.exe",
+              "label": "GitHub CLI extension binary for Windows"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/npm"
     ]
   }
 }

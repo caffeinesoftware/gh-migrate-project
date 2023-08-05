@@ -18,6 +18,14 @@ jobs:
           node-version: 18.x
       - name: Install dependencies
         run: npm ci
+      - name: Generate binaries with pkg
+        run: npm run generate-binaries
+      - name: Rename macOS binary to conform to GitHub CLI extension rules
+        run: mv bin/bundle-macos bin/gh-migrate-project-darwin-amd64
+      - name: Rename Windows binary to conform to GitHub CLI extension rules
+        run: mv bin/bundle-win.exe bin/gh-migrate-project-windows-amd64.exe
+      - name: Rename Linux binary to conform to GitHub CLI extension rules
+        run: mv bin/bundle-linux bin/gh-migrate-project-linux-amd64
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

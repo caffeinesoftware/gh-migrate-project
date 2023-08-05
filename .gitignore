@@ -2,3 +2,5 @@ node_modules
 *.csv
 dist
 project.json
+bin
+bundle.cjs
