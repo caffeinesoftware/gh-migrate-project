@@ -54,6 +54,30 @@
   "release": {
     "branches": [
       "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "bin/gh-migrate-project-darwin-amd64",
+              "label": "GitHub CLI extension binary for macOS"
+            },
+            {
+              "path": "bin/gh-migrate-project-linux-amd64",
+              "label": "GitHub CLI extension binary for Linux"
+            },
+            {
+              "path": "bin/gh-migrate-project-windows-amd64.exe",
+              "label": "GitHub CLI extension binary for Windows"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/npm"
     ]
   }
 }
